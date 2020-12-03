@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button, Card } from 'react-bootstrap';
 
 
 export default class List extends React.Component {
@@ -31,18 +33,22 @@ export default class List extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='d-flex justify-content-center align-items-center'>
         <form onSubmit={this.handleSubmit}>
           <label>
             Type the title to search:
             <input type="text" name="name" onChange={this.handleChange} />
           </label>
           <button type="submit">Search</button>
-          <ul>
-              { this.state.photos.map(photo => <li>{photo.title}</li>)}
-              { this.state.photos.map(photo => <li> <img src= {photo.thumbnailUrl} alt = 'IMG'></img></li>)}
-              { this.state.photos.map(photo => <li>{photo.url}</li>)}
-          </ul>
+          <Card style={{ width: '18rem' }}>
+          {this.state.photos.map(photo => <Card.Img variant="top" src={photo.thumbnailUrl} alt = 'IMG' />)}
+            <Card.Body>
+              <Card.Title> Title: { this.state.photos.map(photo => <p>{photo.title}</p>)}</Card.Title>
+              <Card.Text>
+                URL :{ this.state.photos.map(photo => <p>{photo.url}</p>)}
+              </Card.Text>
+            </Card.Body>
+          </Card>
         </form>
       </div>
     )
